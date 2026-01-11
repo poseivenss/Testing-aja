@@ -1,57 +1,93 @@
-# Template Submission Proposal Tugas Akhir
+# Proposal Tugas Akhir
 
-> Ikuti panduan detail pada [materials/Minggu-11.pdf](materials/Minggu-11.pdf) dan [materials/Minggu-12.pdf](materials/Minggu-12.pdf) sebelum mengisi setiap bagian. Hapus seluruh teks instruksi setelah Anda menggantikannya dengan isi final.
+- **Nama:** Muhammad Irfan Maulana  
+- **NIM:** 202310370311480  
 
 ---
-
-- **Nama:** Muhammad Irfan Maulana
-- **NIM:** 202310370311480
 
 ## 1. Topik Penelitian
 
 ### 1.1 Topik Penelitian
-*Tuliskan judul singkat topik penelitian Anda. Anda dapat memakai topik dari tugas UTS sebelumnya atau merumuskan topik baru. Pastikan spesifik hingga level leaf pada tree topik.*
+**Penerapan Metode Pembelajaran Mesin Tidak Terawasi untuk Deteksi Anomali dalam Data Tabular**
 
 ### 1.2 Tujuan Umum (Aim)
-*Uraikan satu kalimat yang menggambarkan tujuan strategis utama penelitian. Rujuk konsep Aim pada Minggu-11, slide 5-9, untuk struktur kalimat yang tepat.*
+Tujuan umum dari penelitian ini adalah mengembangkan dan mengevaluasi metode pembelajaran mesin tidak terawasi yang mampu mendeteksi anomali secara efektif pada data tabular sehingga dapat meningkatkan keandalan proses analisis data dan mendukung pengambilan keputusan yang lebih akurat.
 
 ### 1.3 Tujuan Khusus (Objectives)
-*Buat daftar 3–5 tujuan operasional. Gunakan format bullet. Pastikan setiap tujuan memenuhi kriteria SMART (Specific, Measurable, Achievable, Relevant, Time-bound) seperti dicontohkan di slide Minggu-11, slide 5-9.*
+- Mengumpulkan dan mempersiapkan dataset tabular yang relevan dalam waktu 3 minggu.
+- Mengimplementasikan minimal tiga metode pembelajaran mesin tidak terawasi untuk deteksi anomali dalam waktu 4 minggu.
+- Melakukan pelatihan dan penyetelan parameter model secara sistematis dalam waktu 2 minggu.
+- Mengevaluasi kinerja setiap model menggunakan metrik evaluasi yang sesuai dalam waktu 2 minggu.
+- Menyusun laporan akhir penelitian secara lengkap dan sistematis dalam waktu 3 minggu.
 
 ---
 
 ## 2. Perencanaan Pengerjaan Proyek
 
 ### 2.1 Work Breakdown Structure (WBS)
-```
-Ganti blok ini dengan tree WBS Anda. Minimal empat level sesuai contoh Minggu-11, slide 11-12.
-Pastikan setiap node level terendah mewakili leaf task yang bisa diestimasi.
-```
+Proyek Penelitian
+├── Studi Literatur
+│ ├── Pengumpulan Referensi
+│ │ ├── Pencarian jurnal
+│ │ └── Seleksi artikel
+│ └── Penyusunan Ringkasan Literatur
+│ ├── Klasifikasi topik
+│ └── Penulisan ringkasan
+├── Persiapan Data
+│ ├── Pengumpulan Dataset
+│ │ ├── Unduh dataset
+│ │ └── Validasi dataset
+│ └── Preprocessing Data
+│ ├── Pembersihan data
+│ └── Normalisasi
+├── Pengembangan Model
+│ ├── Implementasi Model
+│ │ ├── Isolation Forest
+│ │ ├── Autoencoder
+│ │ └── Local Outlier Factor
+│ └── Training & Tuning Model
+│ ├── Pelatihan model
+│ └── Penyetelan parameter
+├── Evaluasi dan Analisis
+│ ├── Pengujian model
+│ └── Analisis hasil
+└── Penyusunan Laporan
+├── Penulisan laporan
+└── Revisi akhir
+
 
 ### 2.2 Estimasi Waktu Leaf Task
-| ID | Leaf Task (activity) | Effort (minggu) | Durasi (minggu) | Ketergantungan |
-|----|-----------|--------------------|------------------------|----------------|
-| ... | ... | ... | ... | ... |
 
-*Isi tabel dengan seluruh leaf task dari WBS. Gunakan effort dan durasi realistis (lihat metode estimasi di Minggu-11, slide 14). Cantumkan dependensi antar task menggunakan ID.*
+| ID  | Leaf Task                        | Effort (minggu) | Durasi (minggu) | Ketergantungan |
+|-----|----------------------------------|----------------|----------------|---------------|
+| T1  | Pencarian jurnal                 | 1              | 1              | -             |
+| T2  | Seleksi artikel                  | 1              | 1              | T1            |
+| T3  | Penulisan ringkasan literatur    | 2              | 2              | T2            |
+| T4  | Pengumpulan dataset              | 1              | 1              | T3            |
+| T5  | Preprocessing data               | 2              | 2              | T4            |
+| T6  | Implementasi model               | 3              | 3              | T5            |
+| T7  | Training & tuning model          | 2              | 2              | T6            |
+| T8  | Pengujian model                  | 1              | 1              | T7            |
+| T9  | Analisis hasil                   | 1              | 1              | T8            |
+| T10 | Penulisan laporan                | 3              | 3              | T9            |
 
 ### 2.3 Critical Path
-*Tuliskan urutan task yang membentuk critical path beserta total durasinya. Sertakan justifikasi singkat sesuai langkah perhitungan di slide Minggu-11, slide 18-25.*
+Critical path proyek ini adalah:  
+**T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10**  
+Total durasi proyek adalah **17 minggu**. Seluruh aktivitas pada jalur ini tidak memiliki slack sehingga keterlambatan satu aktivitas akan langsung mempengaruhi penyelesaian proyek.
 
 ### 2.4 Milestone
-- *M1: ...*
-- *M2: ...*
-- *... Tambahkan milestone lainnya jika diperlukan, rujuk slide Minggu-11, slide 16, 24, 25.*
-
-### 2.5 Activity-on-Node (AON) Diagram
-*Buat diagram AON mengikuti Minggu-11, slide 26-37, atau alternatif Gantt Chart seperti Minggu-12, slide 3-4 (pilih salah satu). Pastikan diagram menampilkan dependensi kritis dan konsisten dengan tabel estimasi. Tips: render di VS Code memakai ekstensi `Markdown Preview Mermaid Support`, atau lampirkan gambar jika Mermaid tidak dapat digunakan. Diagram Mermaid akan tampil otomatis di GitHub.*
+- **M1:** Studi literatur selesai (minggu ke-4)
+- **M2:** Data siap digunakan (minggu ke-7)
+- **M3:** Model selesai dikembangkan (minggu ke-12)
+- **M4:** Evaluasi dan analisis selesai (minggu ke-14)
+- **M5:** Laporan akhir selesai (minggu ke-17)
 
 ### 2.5 Activity-on-Node (AON) Diagram
 
 *AON*
 ```mermaid
 graph LR
-  %% Definisi Node dengan informasi Start & Durasi (minggu)
   T1["<b>T1: Pencarian Jurnal</b><br/>Start: Minggu 1<br/>Durasi: 1 minggu"]
   T2["<b>T2: Seleksi Artikel</b><br/>Start: Minggu 2<br/>Durasi: 1 minggu"]
   T3["<b>T3: Penulisan Ringkasan Literatur</b><br/>Start: Minggu 3<br/>Durasi: 2 minggu"]
@@ -72,7 +108,6 @@ graph LR
   T10["<b>T10: Penulisan Laporan</b><br/>Start: Minggu 15<br/>Durasi: 3 minggu"]
   M5{{Milestone 5: Laporan Akhir Selesai}}
 
-  %% Hubungan antar Task
   T1 --> T2
   T2 --> T3
   T3 --> M1
@@ -88,35 +123,33 @@ graph LR
   M4 --> T10
   T10 --> M5
 
-```
+3. Latar Belakang Penelitian
 
+Perkembangan teknologi informasi telah menghasilkan data dalam jumlah besar dengan struktur yang kompleks, terutama dalam bentuk data tabular yang banyak digunakan di bidang keuangan, kesehatan, manufaktur, dan keamanan. Di dalam data tersebut sering terdapat anomali yang dapat mengganggu proses analisis dan menyebabkan kesalahan dalam pengambilan keputusan apabila tidak terdeteksi dengan baik.
 
+Masalah utama dalam deteksi anomali adalah keterbatasan data berlabel, sehingga metode supervised sulit diterapkan. Oleh karena itu, pendekatan pembelajaran mesin tidak terawasi menjadi solusi yang menjanjikan karena mampu mempelajari pola data normal dan mendeteksi penyimpangan tanpa memerlukan label.
 
----
+Beberapa penelitian terdahulu menunjukkan efektivitas metode unsupervised learning seperti Isolation Forest dan Autoencoder dalam mendeteksi anomali pada data berdimensi tinggi (Liu et al., 2008; Chalapathy & Chawla, 2019).
 
-## 3. Latar Belakang Penelitian
-1. *Paragraf latar belakang umum: jabarkan konteks luas dan urgensi topik (lihat struktur paragraf penjelasan di Minggu-11).*
-2. *Paragraf latar belakang khusus: fokus pada masalah lokal/spesifik yang ingin diselesaikan.*
-3. *Paragraf penelitian terdahulu: rangkum minimal dua penelitian relevan, cantumkan sitasi sesuai format pustaka.*
-4. *Paragraf rencana penelitian Anda: jelaskan kontribusi dan pendekatan yang akan digunakan.*
-5. *Paragraf implikasi: uraikan dampak praktis/ilmiah yang diharapkan.*
+Penelitian ini berfokus pada penerapan dan perbandingan beberapa metode pembelajaran mesin tidak terawasi untuk deteksi anomali pada data tabular dengan tujuan memperoleh model yang paling efektif dan stabil.
 
----
+Hasil penelitian ini diharapkan dapat memberikan kontribusi praktis dalam meningkatkan keandalan sistem analisis data dan memberikan referensi ilmiah bagi penelitian selanjutnya di bidang deteksi anomali.
 
-## 4. Daftar Pustaka
-*Gunakan format sitasi konsisten (APA atau IEEE). Masukkan minimal lima referensi utama dan urutkan sesuai pedoman di Minggu-11. Contoh format:*
+4. Daftar Pustaka
 
-- *NamaBelakang, Inisial. (Tahun). Judul artikel. Nama Jurnal, Volume(Nomor), halaman. DOI/URL.*
+Liu, F. T., Ting, K. M., & Zhou, Z. H. (2008). Isolation Forest. IEEE International Conference on Data Mining.
 
----
+Chalapathy, R., & Chawla, S. (2019). Deep Learning for Anomaly Detection: A Survey. ACM Computing Surveys.
 
-## 5. Prompt AI yang Digunakan
-*Salin seluruh prompt dan ringkas respons AI yang relevan dengan penyusunan proposal. Gunakan format bernomor (Prompt 1, Prompt 2, dst.) seperti panduan dokumentasi AI pada README. Jika ada percakapan yang tidak dipakai, cantumkan tetap sebagai bukti penggunaan AI.*
+Aggarwal, C. C. (2017). Outlier Analysis. Springer.
 
----
+Zong, B., et al. (2018). Deep Autoencoding Gaussian Mixture Model for Unsupervised Anomaly Detection. ICLR.
 
-> Checklist akhir:
-> - [ ] Semua instruksi telah diganti dengan konten final.
-> - [ ] Referensi berasal dari sumber akademik kredibel dan terdaftar di bagian ini.
-> - [ ] Daftar prompt dan respons AI sudah didokumentasikan lengkap.
-> - [ ] Seluruh bagian mematuhi ketentuan penggunaan AI hanya sebagai teman diskusi.
+Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly Detection: A Survey. ACM Computing Surveys.
+
+5. Prompt AI yang Digunakan
+
+Prompt 1: Diskusi penentuan topik dan tujuan penelitian.
+Prompt 2: Penyusunan Work Breakdown Structure dan estimasi waktu.
+Prompt 3: Penyusunan latar belakang penelitian dan referensi akademik.
+Prompt 4: Penyempurnaan perencanaan proyek dan AON diagram.
