@@ -123,33 +123,3 @@ graph LR
   M4 --> T10
   T10 --> M5
 
-3. Latar Belakang Penelitian
-
-Perkembangan teknologi informasi telah menghasilkan data dalam jumlah besar dengan struktur yang kompleks, terutama dalam bentuk data tabular yang banyak digunakan di bidang keuangan, kesehatan, manufaktur, dan keamanan. Di dalam data tersebut sering terdapat anomali yang dapat mengganggu proses analisis dan menyebabkan kesalahan dalam pengambilan keputusan apabila tidak terdeteksi dengan baik.
-
-Masalah utama dalam deteksi anomali adalah keterbatasan data berlabel, sehingga metode supervised sulit diterapkan. Oleh karena itu, pendekatan pembelajaran mesin tidak terawasi menjadi solusi yang menjanjikan karena mampu mempelajari pola data normal dan mendeteksi penyimpangan tanpa memerlukan label.
-
-Beberapa penelitian terdahulu menunjukkan efektivitas metode unsupervised learning seperti Isolation Forest dan Autoencoder dalam mendeteksi anomali pada data berdimensi tinggi (Liu et al., 2008; Chalapathy & Chawla, 2019).
-
-Penelitian ini berfokus pada penerapan dan perbandingan beberapa metode pembelajaran mesin tidak terawasi untuk deteksi anomali pada data tabular dengan tujuan memperoleh model yang paling efektif dan stabil.
-
-Hasil penelitian ini diharapkan dapat memberikan kontribusi praktis dalam meningkatkan keandalan sistem analisis data dan memberikan referensi ilmiah bagi penelitian selanjutnya di bidang deteksi anomali.
-
-4. Daftar Pustaka
-
-Liu, F. T., Ting, K. M., & Zhou, Z. H. (2008). Isolation Forest. IEEE International Conference on Data Mining.
-
-Chalapathy, R., & Chawla, S. (2019). Deep Learning for Anomaly Detection: A Survey. ACM Computing Surveys.
-
-Aggarwal, C. C. (2017). Outlier Analysis. Springer.
-
-Zong, B., et al. (2018). Deep Autoencoding Gaussian Mixture Model for Unsupervised Anomaly Detection. ICLR.
-
-Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly Detection: A Survey. ACM Computing Surveys.
-
-5. Prompt AI yang Digunakan
-
-Prompt 1: Diskusi penentuan topik dan tujuan penelitian.
-Prompt 2: Penyusunan Work Breakdown Structure dan estimasi waktu.
-Prompt 3: Penyusunan latar belakang penelitian dan referensi akademik.
-Prompt 4: Penyempurnaan perencanaan proyek dan AON diagram.
