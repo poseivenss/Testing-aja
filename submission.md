@@ -25,35 +25,44 @@ Tujuan umum dari penelitian ini adalah mengembangkan dan mengevaluasi metode pem
 ## 2. Perencanaan Pengerjaan Proyek
 
 ### 2.1 Work Breakdown Structure (WBS)
-Proyek Penelitian
-├── Studi Literatur
-│ ├── Pengumpulan Referensi
-│ │ ├── Pencarian jurnal
-│ │ └── Seleksi artikel
-│ └── Penyusunan Ringkasan Literatur
-│ ├── Klasifikasi topik
-│ └── Penulisan ringkasan
-├── Persiapan Data
-│ ├── Pengumpulan Dataset
-│ │ ├── Unduh dataset
-│ │ └── Validasi dataset
-│ └── Preprocessing Data
-│ ├── Pembersihan data
-│ └── Normalisasi
-├── Pengembangan Model
-│ ├── Implementasi Model
-│ │ ├── Isolation Forest
-│ │ ├── Autoencoder
-│ │ └── Local Outlier Factor
-│ └── Training & Tuning Model
-│ ├── Pelatihan model
-│ └── Penyetelan parameter
-├── Evaluasi dan Analisis
-│ ├── Pengujian model
-│ └── Analisis hasil
-└── Penyusunan Laporan
-├── Penulisan laporan
-└── Revisi akhir
+Proyek Penelitian Deteksi Anomali Data Tabular
+├── 1. Studi Literatur
+│   ├── 1.1 Pencarian Literatur
+│   │   ├── 1.1.1 Pencarian jurnal internasional
+│   │   └── 1.1.2 Pencarian prosiding konferensi
+│   └── 1.2 Tinjauan dan Sintesis Literatur
+│       ├── 1.2.1 Seleksi artikel relevan
+│       └── 1.2.2 Penulisan ringkasan dan gap penelitian
+├── 2. Persiapan Data
+│   ├── 2.1 Akuisisi Dataset
+│   │   ├── 2.1.1 Identifikasi sumber dataset tabular
+│   │   └── 2.1.2 Pengunduhan dan validasi dataset
+│   └── 2.2 Pra-pemrosesan Data
+│       ├── 2.2.1 Pembersihan data (missing & outlier awal)
+│       └── 2.2.2 Normalisasi dan transformasi fitur
+├── 3. Pengembangan Model
+│   ├── 3.1 Implementasi Metode
+│   │   ├── 3.1.1 Implementasi Isolation Forest
+│   │   ├── 3.1.2 Implementasi Autoencoder
+│   │   └── 3.1.3 Implementasi Local Outlier Factor
+│   └── 3.2 Pelatihan dan Penyetelan Model
+│       ├── 3.2.1 Pelatihan model
+│       └── 3.2.2 Penyetelan hyperparameter
+├── 4. Evaluasi dan Analisis
+│   ├── 4.1 Pengujian Model
+│   │   ├── 4.1.1 Pengujian pada data uji
+│   │   └── 4.1.2 Penghitungan metrik evaluasi
+│   └── 4.2 Analisis Hasil
+│       ├── 4.2.1 Analisis perbandingan performa model
+│       └── 4.2.2 Interpretasi hasil eksperimen
+└── 5. Penyusunan Laporan
+    ├── 5.1 Penulisan Dokumen
+    │   ├── 5.1.1 Penulisan bab pendahuluan dan metodologi
+    │   └── 5.1.2 Penulisan bab hasil dan pembahasan
+    └── 5.2 Finalisasi Laporan
+        ├── 5.2.1 Revisi berdasarkan masukan pembimbing
+        └── 5.2.2 Penyusunan laporan akhir
+
 
 
 ### 2.2 Estimasi Waktu Leaf Task
