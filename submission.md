@@ -14,7 +14,7 @@
 Mengembangkan dan mengevaluasi metode machine learning tidak terawasi (unsupervised) untuk mendeteksi anomali pada data tabular multivariat.
 
 ### 1.3 Tujuan Khusus (Objectives)
-- **O1:** Menyelesaikan studi literatur dan tinjauan pustaka mengenai teknik deteksi anomali tidak terawasi pada data tabular, mencakup minimal 15 artikel jurnal internasional dalam waktu 4 minggu.
+- **O1:** Menyelesaikan studi literatur dan tinjauan pustaka mengenai teknik deteksi anomali tidak terawasi pada data tabular, mencakup minimal 6 artikel/jurnal dalam waktu 4 minggu.
 - **O2:** Mengumpulkan dan menyiapkan minimal 10 dataset tabular benchmark dari repository ADBench dan ODDS untuk eksperimen dalam waktu 3 minggu.
 - **O3:** Mengimplementasikan minimal tiga algoritma deteksi anomali (Extended Isolation Forest, k-Nearest Neighbor, dan Isolation Forest) menggunakan Python dengan library PyOD dalam waktu 3 minggu.
 - **O4:** Melakukan training dan hyperparameter tuning pada setiap algoritma menggunakan metode validasi yang sesuai dalam waktu 2 minggu.
@@ -27,7 +27,7 @@ Mengembangkan dan mengevaluasi metode machine learning tidak terawasi (unsupervi
 
 ### 2.1 Work Breakdown Structure (WBS)
 
-![Work Breakdown Structure](WBS.png)
+![Work Breakdown Structure](material/WBS.png)
 
 
 
@@ -168,11 +168,11 @@ Pada akhirnya, penelitian ini diharapkan dapat memberikan kontribusi yang bermak
 
 ## 4. Daftar Pustaka
 
-[1] L. Bouman, W. Bukhsh, dan T. Heskes, "Unsupervised Anomaly Detection Algorithms on Real-world Data: How Many Do We Need?," *arXiv preprint*, arXiv:2305.00735, 2024. [Online]. Available: https://arxiv.org/abs/2305.00735
+[1] L. Bouman, W. Bukhsh, dan T. Heskes, "Unsupervised Anomaly Detection Algorithms on Real-world Data: How Many Do We Need?," *arXiv preprint*, arXiv:2305.00735, 2024. https://arxiv.org/abs/2305.00735
 
-[2] J. Zamberg, I. Salhov, O. Lindenbaum, dan A. Averbuch, "TabADM: Unsupervised Tabular Anomaly Detection with Diffusion Models," *arXiv preprint*, arXiv:2307.12336, 2023. [Online]. Available: https://arxiv.org/abs/2307.12336
+[2] J. Zamberg, I. Salhov, O. Lindenbaum, dan A. Averbuch, "TabADM: Unsupervised Tabular Anomaly Detection with Diffusion Models," *arXiv preprint*, arXiv:2307.12336, 2023. https://arxiv.org/abs/2307.12336
 
-[3] Z. Dai, T. Hwang, dan W. Fan, "Unsupervised Anomaly Detection for Tabular Data Using Noise Evaluation," *arXiv preprint*, arXiv:2412.11461, 2024. [Online]. Available: https://arxiv.org/abs/2412.11461
+[3] Z. Dai, T. Hwang, dan W. Fan, "Unsupervised Anomaly Detection for Tabular Data Using Noise Evaluation," *arXiv preprint*, arXiv:2412.11461, 2024. https://arxiv.org/abs/2412.11461
 
 [4] G. S. W. Prabuningrat, D. P. Hostiadi, dan N. L. P. Srinadi, "Klasifikasi Deteksi Anomali Menggunakan Metode Machine Learning," *Prosiding Seminar Hasil Penelitian Informatika dan Komputer (SPINTER)*, vol. 1, no. 2, pp. 845-850, 2024. https://spinter.stikom-bali.ac.id/index.php/spinter/article/view/245
 
