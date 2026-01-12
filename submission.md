@@ -25,43 +25,8 @@ Tujuan umum dari penelitian ini adalah mengembangkan dan mengevaluasi metode pem
 ## 2. Perencanaan Pengerjaan Proyek
 
 ### 2.1 Work Breakdown Structure (WBS)
-Proyek Penelitian Deteksi Anomali Data Tabular
-├── 1. Studi Literatur
-│   ├── 1.1 Pencarian Literatur
-│   │   ├── 1.1.1 Pencarian jurnal internasional
-│   │   └── 1.1.2 Pencarian prosiding konferensi
-│   └── 1.2 Tinjauan dan Sintesis Literatur
-│       ├── 1.2.1 Seleksi artikel relevan
-│       └── 1.2.2 Penulisan ringkasan dan gap penelitian
-├── 2. Persiapan Data
-│   ├── 2.1 Akuisisi Dataset
-│   │   ├── 2.1.1 Identifikasi sumber dataset tabular
-│   │   └── 2.1.2 Pengunduhan dan validasi dataset
-│   └── 2.2 Pra-pemrosesan Data
-│       ├── 2.2.1 Pembersihan data (missing & outlier awal)
-│       └── 2.2.2 Normalisasi dan transformasi fitur
-├── 3. Pengembangan Model
-│   ├── 3.1 Implementasi Metode
-│   │   ├── 3.1.1 Implementasi Isolation Forest
-│   │   ├── 3.1.2 Implementasi Autoencoder
-│   │   └── 3.1.3 Implementasi Local Outlier Factor
-│   └── 3.2 Pelatihan dan Penyetelan Model
-│       ├── 3.2.1 Pelatihan model
-│       └── 3.2.2 Penyetelan hyperparameter
-├── 4. Evaluasi dan Analisis
-│   ├── 4.1 Pengujian Model
-│   │   ├── 4.1.1 Pengujian pada data uji
-│   │   └── 4.1.2 Penghitungan metrik evaluasi
-│   └── 4.2 Analisis Hasil
-│       ├── 4.2.1 Analisis perbandingan performa model
-│       └── 4.2.2 Interpretasi hasil eksperimen
-└── 5. Penyusunan Laporan
-    ├── 5.1 Penulisan Dokumen
-    │   ├── 5.1.1 Penulisan bab pendahuluan dan metodologi
-    │   └── 5.1.2 Penulisan bab hasil dan pembahasan
-    └── 5.2 Finalisasi Laporan
-        ├── 5.2.1 Revisi berdasarkan masukan pembimbing
-        └── 5.2.2 Penyusunan laporan akhir
+
+![Work Breakdown Structure](WBS.png)
 
 
 
@@ -132,3 +97,36 @@ graph LR
   M4 --> T10
   T10 --> M5
 
+
+
+## 3. Latar Belakang Penelitian
+
+Kanker kulit adalah penyakit mematikan yang menyerang orang-orang di seluruh dunia. Menurut Organisasi Kesehatan Dunia (WHO), lebih dari 160.000 orang menderita penyakit kulit setiap hari di dunia. Australia memiliki tingkat penyakit kulit yang lebih tinggi dibandingkan negara lain, beberapa kali lebih tinggi dibandingkan Amerika Serikat. Menurut data Badan Pengukuran Australia, 32,6% dari seluruh warga Australia yang terkena pertumbuhan ganas juga menderita penyakit kulit. Terdapat 971.279 kasus penyakit kulit pada tahun 2012, dan 2.162 kasus diantaranya berakibat fatal. Sementara itu, data Habitats for Infectious Prevention and Control menunjukkan 8.885 orang meninggal akibat kanker kulit di Amerika Serikat pada tahun 2015.
+
+Di Indonesia, hampir tidak ada korban kanker kulit dibandingkan dengan negara-negara kedua tersebut. Bagaimana pun penyakit kulit ini harus mendapat perhatian sesegera mungkin, karena selain dapat menimbulkan kerugian yang dapat merusak penampilan, namun juga dapat menyebabkan kematian bila sampai pada tahap tingkat tinggi. Dikutip dari Pusat Penelitian Sumber Daya dan Pelayanan Kesehatan Kemenkes Indonesia, pada tahun 2012, diperkirakan terdapat 14 juta kasus penyakit baru dan 8,2 juta kematian akibat pertumbuhan ganas di planet ini[1]. Selain itu, di Indonesia, berdasarkan data dari Disease Enrollment Organization, Hubungan Ahli Patologi Indonesia, dari 1.530 kasus kanker kulit, kasus terbanyak adalah karsinoma sel basal, tepatnya 39,93%. Oleh karena itu, kami sangat menginginkan suatu aplikasi produk yang dapat dimanfaatkan untuk membantu membedakan penyakit kulit secara dini tanpa adanya masalah. Aplikasi produk ini diyakini dapat membantu masyarakat secara umum dalam membedakan masalah kulit, terlepas dari apakah masalah tersebut termasuk dalam klasifikasi penyakit. Dengan cara ini, orang tidak akan tahu apa-apa tentang jenis masalah kulitnya, sehingga mereka dapat berkonsultasi dengan spesialis, khususnya ahli kulit dan kelamin yang terlatih[2].
+
+Pertumbuhan sel kulit yang tidak normal dapat dibedakan menjadi dua jenis, yaitu benign (jinak) dan malignant (ganas). Pertumbuhan sel benign cenderung berlangsung lebih lambat dibandingkan dengan pertumbuhan sel malignant, karena pertumbuhan sel malignant dapat lebih cepat menyebar ke seluruh tubuh sebagai akibat infeksi[3]. Penelitian yang dilakukan oleh Bagus Mitra Sujatmiko, dkk. menunjukkan bahwa dengan melakukan preprocessing citra, augmentasi data, dan klasifikasi menggunakan 3 arsitektur model ResNet yaitu ResNet-18, ResNet-50, dan ResNet-101, masing-masing hasil akurasi dari ketiga arsitektur tersebut adalah 100%, 95%, dan 100%[8]. Selanjutnya penelitian dalam pendeteksian kanker kulit menggunakan image processing yang dilakukan oleh Aarushi Shah, dkk. menunjukkan bahwa proses preprocessing, segmentasi, feature extraction, classification menggunakan ANN dan CNN menghasilkan tingkat akurasi rata-rata sebesar 96.8% dan 92%[10]. Penelitian lain oleh Nur Alyyu, dkk dengan judul "Klasifikasi Kanker Kulit Ganas Dan Jinak Menggunakan Metode Convolutional Neural Network" menunjukkan nilai performa validasi akurasi sebesar 99% dengan parameter terbaik menggunakan optimizer AdaMax, Learning rate 0.0001, batch size 64 dan epoch sebanyak 50[11].
+
+Pada penelitian ini metode yang digunakan untuk melakukan segmentasi dan klasifikasi kanker kulit berbasis pengolahan citra digital, yaitu Convolutional Neural Network dengan menggunakan Arsitektur Model ResNet-50. Convolutional Neural Network (CNN) dapat menangani permasalahan data yang berbentuk grid, seperti data gambar dan citra. CNN adalah metode terbaik dibandingkan dengan teknik lainnya karena dapat memperoleh fakta, meringkas model yang diperoleh, dan kualitas informasi dinamis[4][5]. CNN umumnya memiliki kemampuan untuk melakukan transfer learning dengan baik, dimana model yang telah dilatih pada dataset besar seperti ImageNet dapat digunakan sebagai titik awal (pre-trained model) untuk tugas-tugas penglihatan komputer lainnya dengan melakukan fine-tuning pada dataset yang lebih kecil[6]. Arsitektur model ResNet merupakan salah satu arsitektur model dari CNN untuk melatih jaringan yang sangat dalam tanpa mengalami masalah degradasi kinerja yang umumnya terjadi pada jaringan yang lebih dalam[7]. Arsitektur ini memiliki berbagai jenis model yang dibedakan berdasarkan jumlah layer, mulai dari 18 layer, 34 layer, 50 layer, 101 layer dan 152 layer[8]. ResNet telah berhasil digunakan di berbagai tugas machine learning dan penglihatan komputer, termasuk klasifikasi gambar, deteksi objek, dan segmentasi gambar[9].
+
+Alasan memakai model CNN adalah memiliki kemampuan pembelajaran yang kuat sehingga dapat memodelkan hubungan kompleks antara input dan output, menjadikannya cocok untuk berbagai masalah prediksi dan klasifikasi termasuk yang tidak memiliki pola yang jelas. CNN dapat mendeteksi pola dan fitur-fitur penting yang mungkin sulit ditemukan oleh metode klasifikasi tradisional. CNN dapat disesuaikan dengan berbagai ukuran dan kompleksitas serta memiliki kemampuan untuk generalisasi, yang berarti dapat memprediksi dengan baik pada data yang belum pernah dilihat sebelumnya. Hal ini penting dalam pengujian model di luar sampel pelatihan[11][12]. Dengan penelitian ini, diharapkan dapat memberikan kontribusi dalam pengembangan sistem deteksi dini kanker kulit yang akurat dan dapat membantu tenaga medis serta masyarakat umum dalam mengidentifikasi potensi kanker kulit secara lebih cepat dan efisien.
+
+---
+
+## 4. Daftar Pustaka
+*Gunakan format sitasi konsisten (APA atau IEEE). Masukkan minimal lima referensi utama dan urutkan sesuai pedoman di Minggu-11. Contoh format:*
+
+- *NamaBelakang, Inisial. (Tahun). Judul artikel. Nama Jurnal, Volume(Nomor), halaman. DOI/URL.*
+
+---
+
+## 5. Prompt AI yang Digunakan
+*Salin seluruh prompt dan ringkas respons AI yang relevan dengan penyusunan proposal. Gunakan format bernomor (Prompt 1, Prompt 2, dst.) seperti panduan dokumentasi AI pada README. Jika ada percakapan yang tidak dipakai, cantumkan tetap sebagai bukti penggunaan AI.*
+
+---
+
+> Checklist akhir:
+> - [ ] Semua instruksi telah diganti dengan konten final.
+> - [ ] Referensi berasal dari sumber akademik kredibel dan terdaftar di bagian ini.
+> - [ ] Daftar prompt dan respons AI sudah didokumentasikan lengkap.
+> - [ ] Seluruh bagian mematuhi ketentuan penggunaan AI hanya sebagai teman diskusi.
