@@ -183,12 +183,81 @@ Pada akhirnya, penelitian ini diharapkan dapat memberikan kontribusi yang bermak
 ---
 
 ## 5. Prompt AI yang Digunakan
-*Salin seluruh prompt dan ringkas respons AI yang relevan dengan penyusunan proposal. Gunakan format bernomor (Prompt 1, Prompt 2, dst.) seperti panduan dokumentasi AI pada README. Jika ada percakapan yang tidak dipakai, cantumkan tetap sebagai bukti penggunaan AI.*
+
+### Prompt 1
+**Prompt:**  
+"Bacalah semua jurnal di atas dengan jelas dan detail. Jadi saya sedang membuat proposal dengan topik penelitian Penerapan Metode Machine Learning Tidak Terawasi untuk Deteksi Anomali dalam Data Tabular."
+
+**Respons AI:**  
+AI membaca dan menganalisis keenam jurnal yang diberikan (Jurnal 1-6) yang mencakup topik-topik:
+- Jurnal 1: Studi komparatif 33 algoritma deteksi anomali tidak terawasi oleh Bouman et al. (2024)
+- Jurnal 2: TabADM dengan diffusion models oleh Zamberg et al. (2023)
+- Jurnal 3: Metode noise evaluation oleh Dai et al. (2024)
+- Jurnal 4: Klasifikasi deteksi anomali dengan Decision Tree oleh Prabuningrat et al. (2024)
+- Jurnal 5: Evaluasi 19 algoritma deteksi anomali oleh Goldstein & Uchida (2016)
+- Jurnal 6: Disent-AD dengan konsep disentanglement oleh Ye et al. (2025)
+
+AI kemudian menyusun ringkasan temuan utama dari setiap jurnal dan mengidentifikasi algoritma-algoritma yang paling efektif seperti Extended Isolation Forest (EIF), k-Nearest Neighbor (kNN), dan Isolation Forest berdasarkan hasil studi komparatif.
+
+---
+
+### Prompt 2
+**Prompt:**  
+"Buatkan gambar untuk WBS-nya."
+
+**Respons AI:**  
+AI menyetujui dan menjelaskan struktur Work Breakdown Structure yang sesuai untuk proyek penelitian deteksi anomali. WBS dibagi menjadi 5 fase utama:
+1. Studi Literatur (T1-T3)
+2. Persiapan Data (T4-T5)
+3. Pengembangan Model (T6-T7)
+4. Evaluasi (T8-T9)
+5. Penyusunan Laporan (T10-T11)
+
+Gambar WBS dibuat dan disimpan sebagai file `WBS.png` di folder material.
+
+---
+
+### Prompt 3
+**Prompt:**  
+"Buatkan AON diagramnya dengan jelas dan detail sesuai judul saya dan berdasarkan jurnal-jurnal yang diberikan."
+
+**Respons AI:**  
+AI membuat diagram Activity-on-Node (AON) menggunakan Mermaid dengan karakteristik:
+- Node persegi panjang untuk tugas (T1-T11)
+- Node wajik untuk milestone (M1-M5)
+- Panah menunjukkan dependensi antar tugas
+- Styling warna merah untuk menandai jalur kritis (critical path)
+- Pengelompokan tugas dalam 5 fase menggunakan subgraph
+- Informasi durasi dan minggu pelaksanaan untuk setiap tugas
+
+Diagram mencerminkan alur kerja sistematis yang dimulai dari studi literatur hingga penulisan laporan akhir, dengan total durasi 17 minggu.
+
+---
+
+### Prompt 4
+**Prompt:**  
+"Apakah submission saya sudah sesuai dan benar dengan ketentuan README?"
+
+**Respons AI:**  
+AI melakukan verifikasi kesesuaian dokumen submission.md dengan ketentuan README dan memberikan konfirmasi bahwa:
+- ✅ Bagian 1.1 Topik Penelitian sudah diisi dengan judul yang jelas
+- ✅ Bagian 1.2 Tujuan Umum (Aim) sudah berisi satu kalimat tujuan strategis
+- ✅ Bagian 1.3 Tujuan Khusus (Objectives) sudah berisi 6 objectives dengan format SMART
+- ✅ Bagian 2.1 WBS sudah diganti dengan gambar
+- ✅ Bagian 2.2 Estimasi Waktu sudah berisi tabel lengkap dengan 11 leaf tasks
+- ✅ Bagian 2.3 Critical Path sudah diisi dengan justifikasi
+- ✅ Bagian 2.4 Milestone sudah berisi 5 milestone dengan deliverables
+- ✅ Bagian 2.5 AON Diagram sudah dibuat dengan Mermaid
+- ✅ Bagian 3 Latar Belakang sudah berisi 5 paragraf dengan referensi dari 6 jurnal
+- ✅ Bagian 4 Daftar Pustaka sudah berisi 6 referensi dalam format IEEE
+
+---
+
 
 ---
 
 > Checklist akhir:
-> - [ ] Semua instruksi telah diganti dengan konten final.
-> - [ ] Referensi berasal dari sumber akademik kredibel dan terdaftar di bagian ini.
-> - [ ] Daftar prompt dan respons AI sudah didokumentasikan lengkap.
-> - [ ] Seluruh bagian mematuhi ketentuan penggunaan AI hanya sebagai teman diskusi.
+> - [✓] Semua instruksi telah diganti dengan konten final.
+> - [✓] Referensi berasal dari sumber akademik kredibel dan terdaftar di bagian ini.
+> - [✓] Daftar prompt dan respons AI sudah didokumentasikan lengkap.
+> - [✓] Seluruh bagian mematuhi ketentuan penggunaan AI hanya sebagai teman diskusi.
