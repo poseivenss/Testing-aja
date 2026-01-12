@@ -1,0 +1,385 @@
+Project Planning (1)
+Minggu 11
+
+Gambaran Umum
+• Semua proyek menghabiskan sumber daya, termasuk waktu dan uang, untuk
+menghasilkan sebuah produk dengan ruang lingkup dan kualitas tertentu.
+• Selalu ada ketegangan antara besar kecilnya sumber daya yang digunakan
+dan besar kecilnya keluaran produk yang dihasilkan.
+• Terdapat pula ketegangan antara aktivitas manajemen proyek dan aktivitas
+pengembangan proyek.
+
+Aktivitas Utama Proyek
+• Manajemen proyek
+
+• Berhubungan dengan:
+•
+•
+•
+•
+
+merencanakan pelaksanaan proyek
+mengendalikan dan memeriksa kemajuan proyek
+memantau tonggak (milestones) dan hasil (deliverables)
+mengelola risiko
+
+• Seyogianya tidak memakan lebih dari 10% dari total upaya
+• (tidak tersebar merata; sebagian besar dilakukan di awal!).
+
+• Pengembangan ‘produk’
+• Berhubungan dengan:
+•
+•
+•
+•
+
+mencapai tujuan dan sasaran proyek
+menghasilkan deliverables sesuai dengan rencana proyek
+mengoptimalkan ruang lingkup dan kualitas deliverables relatif terhadap
+sumber daya yang tersedia.
+
+Tahapan Proyek
+Dari perspektif manajemen proyek, proyek berjalan melalui lima
+tahap:
+• Definisi
+
+• Menentukan sebuah proyek; membuat proposal proyek.
+
+• Perencanaan
+
+• Perencanaan rinci proyek.
+
+• Inisiasi
+
+• Mengorganisasi pekerjaan (terutama kerja kelompok); survei literatur.
+
+• Pengendalian
+
+• Memantau kemajuan proyek.
+
+• Penutupan
+
+• Menyerahkan/mendeploy hasil proyek; menyiapkan presentasi akhir; menulis
+laporan.
+
+Definisi Proyek: Tujuan dan Sasaran (1)
+Spesifikasi yang jelas tentang apa yang ingin dicapai oleh proyek
+— definisi tujuan dan sasaran.
+Tujuan (Aims):
+
+• Pernyataan luas mengenai maksud proyek.
+• Menjelaskan tujuan utama dari proyek.
+
+Contoh:
+
+• Merancang metodologi untuk pengembangan GUI pada materi kursus teknis.
+• Mengembangkan dan mengevaluasi Jaringan Syaraf Tiruan untuk memprediksi
+indeks pasar saham.
+
+Definisi Proyek: Tujuan dan Sasaran (2)
+Spesifikasi yang jelas tentang apa yang ingin dicapai oleh proyek
+— definisi tujuan umum (aims) dan tujuan khusus (objectives).
+Aim (tujuan umum):
+
+• Mengembangkan dan mengevaluasi Jaringan Syaraf Tiruan untuk memprediksi indeks pasar saham.
+
+Objectives (Tujuan Khusus):
+
+• Menentukan capaian yang spesifik dan terukur.
+• Berisi ukuran kuantitatif dan kualitatif yang dapat digunakan untuk menilai penyelesaian proyek.
+
+Contoh:
+•
+•
+•
+•
+•
+
+Menyelesaikan pencarian literatur dan tinjauan pustaka mengenai teknik prediksi pasar saham yang sudah ada.
+Mengembangkan model Jaringan Syaraf Tiruan yang sesuai.
+Mengidentifikasi dan mengumpulkan data yang tepat untuk analisis dan evaluasi.
+Mengevaluasi model menggunakan teknik statistik yang sesuai.
+Menyelesaikan laporan akhir.
+
+Definisi Proyek: Tujuan SMART
+Setiap objective (tujuan khusus) harus:
+•
+•
+•
+•
+•
+
+Specific (Spesifik)
+Measurable (Terukur)
+Appropriate (Sesuai)
+Realistic (Realistis)
+Time-related (Terikat waktu)
+
+Contoh:
+•
+
+Menyelesaikan pencarian literatur dan tinjauan pustaka mengenai teknik prediksi pasar saham yang sudah ada.
+
+Pertanyaan yang perlu diperiksa:
+•
+
+Apakah tujuan ini spesifik?
+
+•
+
+Apakah dapat diukur?
+
+•
+
+Apakah sesuai?
+
+•
+•
+•
+
+•
+
+Bagaimana kita mengetahui sejauh mana dan dengan kualitas seperti apa tujuan ini sudah tercapai?
+Apakah tujuan ini berkaitan dengan dan mendukung aims dari proyek?
+
+Apakah tujuan ini realistis?
+•
+
+•
+
+Apakah menjelaskan dengan jelas apa yang akan dilakukan?
+
+Dapatkah kita secara realistis berharap untuk mencapai tujuan ini?
+
+Apakah tujuan ini terikat waktu?
+•
+
+Apakah kita sudah menentukan berapa lama tugas ini akan berlangsung dan kapan akan diselesaikan?
+
+Perencanaan Proyek
+Tujuan perencanaan proyek
+•
+•
+•
+•
+
+Mengidentifikasi tugas-tugas yang perlu dilakukan
+Menjelaskan urutan pelaksanaan tugas-tugas
+Menentukan berapa lama setiap tugas akan berlangsung
+(Mendefinisikan ulang proyek jika ada masalah)
+
+Langkah-langkah perencanaan proyek
+•
+•
+•
+•
+•
+•
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+Contoh Kasus
+Contoh Tujuan Umum (Aim):
+
+• Mengembangkan dan mengevaluasi Jaringan Syaraf Tiruan untuk memprediksi
+indeks pasar saham.
+
+Contoh Tujuan Khusus (Objectives):
+
+• Menyelesaikan pencarian literatur dan tinjauan pustaka mengenai teknik
+prediksi pasar saham yang sudah ada.
+• Mengembangkan model Jaringan Syaraf Tiruan yang sesuai.
+• Mengidentifikasi dan mengumpulkan data yang tepat untuk analisis dan
+evaluasi.
+• Mengevaluasi model menggunakan teknik statistik yang sesuai.
+• Menyelesaikan laporan akhir.
+
+Langkah-langkah Perencanaan Proyek
+1.
+2.
+3.
+4.
+5.
+6.
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+Pemecahan Pekerjaan (Work Breakdown) (1)
+• Langkah pertama perencanaan proyek:
+
+• Mengidentifikasi tugas-tugas yang perlu dilakukan.
+
+• Titik awal sebaiknya adalah tujuan-tujuan proyek;
+• Kemudian uraikan tujuan-tujuan tersebut menjadi tingkat-tingkat detail yang lebih rendah.
+• Struktur pemecahan pekerjaan (work breakdown structures) digunakan untuk
+memvisualisasikan proses pemecahan proyek.
+
+Pemecahan Pekerjaan (Work Breakdown) (1)
+• Tugas pada semua tingkat harus terpisah satu sama lain.
+• Lanjutkan memecah proyek menjadi tugas-tugas yang lebih kecil
+sampai setiap tugas menempati tidak kurang dari 5% dari total
+upaya.
+
+Langkah-langkah Perencanaan Proyek
+1.
+2.
+3.
+4.
+5.
+6.
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+Perkiraan Waktu (Time Estimates)
+• Buat prediksi yang cukup akurat mengenai:
+• Upaya yang dibutuhkan untuk menyelesaikan setiap leaf node dari struktur pemecahan
+pekerjaan.
+• Durasi hingga penyelesaian setiap leaf node.
+• Jika perkiraan melebihi total waktu yang tersedia untuk proyek, maka:
+• Ubah tujuan dan struktur pemecahan pekerjaan, atau
+• Kurangi dan alokasikan ulang waktu antar tugas.
+
+Langkah-langkah Perencanaan Proyek
+1.
+2.
+3.
+4.
+5.
+6.
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+Identifikasi Milestone (Milestone
+Identification)
+• Milestone adalah langkah-langkah penting menuju penyelesaian proyek,
+• yaitu tujuan-tujuan sementara yang menjadi sasaran.
+
+Langkah-langkah Perencanaan Proyek
+1.
+2.
+3.
+4.
+5.
+6.
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+Urutan aktivitas (Activity sequencing)
+• Struktur pemecahan pekerjaan tidak menunjukkan urutan pelaksanaan
+tugas.
+
+• Untuk merepresentasikan urutan dan ketergantungan antar tugas, kita
+dapat menggunakan jaringan aktivitas (activity networks):
+• Diagram Activity-on-the-Node
+• Diagram Activity-on-the-Arrow
+
+Diagram Activity-on-the-Node
+• Tugas direpresentasikan dengan node berbentuk persegi panjang
+• Milestone direpresentasikan dengan node berbentuk wajik
+• Panah menunjukkan urutan pelaksanaan tugas
+
+• Contoh:
+
+• Tugas A harus diselesaikan sebelum tugas B dan C dapat dimulai
+• Tugas B dan C dapat dikerjakan secara independen (paralel)
+• Tugas D hanya dapat dimulai setelah tugas B dan C selesai
+
+Diagram Activity-on-the-Node: Tanggal mulai
+dan berakhir
+• Misalkan kita memperkirakan upaya dan durasi untuk keempat tugas sebagai berikut.
+
+• Juga diasumsikan:
+•
+•
+•
+
+Proyek dimulai pada 1 Januari
+Setiap bulan memiliki empat minggu
+Tidak ada libur, cuti, atau jeda lainnya
+
+• Pertanyaannya:
+•
+
+Berapa tanggal mulai untuk masing-masing tugas?
+
+Kita perlu mempertimbangkan kemampuan kita untuk melakukan aktivitas secara paralel.
+
+Diagram Activity-on-the-Node: Critical Path
+• Critical path: Jalur dengan durasi terpanjang dalam sebuah
+jaringan,
+• menunjukkan tugas-tugas dalam proyek yang tidak boleh tertunda.
+
+• Penentuan jalur kritis:
+• Tentukan tanggal mulai paling awal untuk setiap aktivitas
+• Kerjakan mundur dari akhir ke awal
+• Selama hanya ada satu tugas sebelumnya, tugas ini harus ada di jalur
+kritis
+• Jika ada lebih dari satu tugas sebelumnya, hanya tugas yang memaksa
+waktu mulai tugas berikutnya yang termasuk di jalur kritis
+• Bisa ada lebih dari satu jalur kritis
+
+Contoh
+• Tujuan kita adalah menyusun diagram activity-on-the-node untuk proyek contoh prediksi
+pasar saham berdasarkan proyek contoh kita.
+
+• Tentukan tanggal mulai untuk setiap tugas
+• Tentukan jalur kritis (critical path) untuk proyek ini
+
+Solusi
+
+Batasan Penggunakan Diagram Aktivitas
+• Kebenaran diagram aktivitas sulit untuk diperiksa
+
+• Pertanyaan: Apakah tugas A dan B dapat dikerjakan secara paralel dan keduanya selesai
+dalam 4 minggu?
+• Jawaban: Informasi tidak cukup untuk menentukan.
+
+• Tidak memungkinkan untuk mengekspresikan distribusi upaya (effort) dalam
+sebuah tugas
+• Tidak mencerminkan durasi/upaya tiap tugas dengan baik (semua node berukuran
+sama)
+• Tidak memungkinkan untuk menunjukkan slack (waktu luang)
+• Pandangan sederhana tentang aktivitas/tugas: Tidak ada loop, tidak ada kondisi
+
+Langkah-langkah Perencanaan Proyek
+(minggu depan)
+1.
+2.
+3.
+4.
+5.
+6.
+
+Pemecahan pekerjaan (Work breakdown)
+Perkiraan waktu (Time estimates)
+Identifikasi tonggak (Milestone identification)
+Urutan aktivitas (Activity sequencing)
+Penjadwalan (Scheduling)
+Perencanaan ulang (Replanning)
+
+
