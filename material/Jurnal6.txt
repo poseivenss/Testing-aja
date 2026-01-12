@@ -1,0 +1,1516 @@
+The Thirty-Ninth AAAI Conference on Artificial Intelligence (AAAI-25)
+
+Disentangling Tabular Data Towards Better One-Class Anomaly Detection
+Jianan Ye1,2 , Zhaorui Tan1,2 , Yijie Hu1,2 , Xi Yang1 , Guangliang Cheng2 , Kaizhu Huang3 *
+2
+
+1
+School of Advanced Technology, Xi’an Jiaotong-Liverpool University
+School of Electrical Engineering, Electronics and Computer Science, University of Liverpool
+3
+Data Science Research Center, Duke Kunshan University
+kaizhu.huang@dukekunshan.edu.cn
+
+1.0
+
+Abstract
+Tabular anomaly detection under the one-class classification
+setting poses a significant challenge, as it involves accurately
+conceptualizing “normal” derived exclusively from a single
+category to discern anomalies from normal data variations.
+Capturing the intrinsic correlation among attributes within
+normal samples presents one promising method for learning the concept. To do so, the most recent effort relies on
+a learnable mask strategy with a reconstruction task. However, this wisdom may suffer from the risk of producing uniform masks, i.e., essentially nothing is masked, leading to
+less effective correlation learning. To address this issue, we
+presume that attributes related to others in normal samples
+can be divided into two non-overlapping and correlated subsets, defined as CorrSets, to capture the intrinsic correlation
+effectively. Accordingly, we introduce an innovative method
+that disentangles CorrSets from normal tabular data. To our
+knowledge, this is a pioneering effort to apply the concept
+of disentanglement for one-class anomaly detection on tabular data. Extensive experiments on 20 tabular datasets show
+that our method substantially outperforms the state-of-the-art
+methods and leads to an average performance improvement
+of 6.1% on AUC-PR and 2.1% on AUC-ROC.
+
+1
+
+0.8
+
+Mask generator
+𝑥
+
+Fifteen soft masks
+
+0.6
+
+(a) MCM (performance: 83.0%)
+0.4
+
+0.2
+
+Attention module
+𝑥
+
+Two attention maps
+
+(b) Ours (performance: 89.4%)
+
+0.0
+
+Figure 1: Visualization of MCM (Yin et al. 2024)’s fifteen soft masks and our two attention maps on the Thyroid dataset (six attributes). The presented masks and attention maps are averages derived from all training samples. In
+MCM’s masks, darker colors indicate greater masking ratios
+while a higher attention weight in our attention maps.
+
+Introduction
+
+Tabular anomaly detection under the one-class classification
+setting presumes the availability of only one-class data, i.e.,
+the normal class samples for training, while the goal during
+the test is to discern anomalies (Chandola, Banerjee, and Kumar 2009; Ruff et al. 2021). In practical scenarios, such as financial fraud detection, cyber intrusion detection, and medical diagnosis (Hilal, Gadsden, and Yawney 2022; Malaiya
+et al. 2019; Chen and Konukoglu 2018), this method tries
+to detect whether new data points conform to the pattern of
+observed normal samples, thereby identifying them as either
+normal or abnormal. Given that only normal instances are
+available during the training, the inherent challenge lies in
+extracting the invariant feature of normal data. An instance
+observed with patterns deviating from these characteristics
+is detected as an anomaly. However, the lack of prior knowledge on structures in tabular data poses a significant challenge for learning such knowledge (Shenkar and Wolf 2022).
+
+One reasonable way to mitigate this challenge is to focus on capturing the intrinsic correlation among attributes
+of normal samples. Once one or more attributes of a sample
+deviate anomalously, it is an anomaly, and the correlation
+among attributes becomes different from that exhibited in
+normal samples. The most recent MCM (Yin et al. 2024)
+proposes a learnable mask generator module with a diversity loss to create diverse soft masks (i.e., mask values range
+from 0 to 1 for input data). A reconstruction task is then designed to restore the original data from its masked variants.
+During inference, anomalous attributes will disrupt the correlations observed in the normal class, leading to a failure to
+reconstruct the original data from masked instances, thereby
+allowing anomalies to be detected. Despite its efficacy, the
+diversity loss may generate masks with nearly uniform values, inducing trivial solutions of the learned intrinsic correlations. Empirical evidence in Figure 1(a) suggests that the
+
+* Corresponding author.
+Copyright © 2025, Association for the Advancement of Artificial
+Intelligence (www.aaai.org). All rights reserved.
+
+13061
+
+values of all soft masks are around 0.5. In this case, each
+attribute is scaled with the same value, indicating essentially
+no attribute is masked. Thus, the model learns the objective
+of reconstructing the original data from complete features
+instead of partial attributes, resulting in less effective extraction of the desired correlation.
+In this paper, we presume that attributes related to others
+in normal tabular data can be split into two1 non-overlapping
+and correlated subsets, termed as CorrSets, to ensure the distillation of the intrinsic correlation among attributes from
+normal instances. Building on this premise, this paper validates that disentangling those CorrSets from normal samples
+for reconstruction promotes the learning of normal samples’
+inside correlations. Specifically, the sufficiently disentangled CorrSets are used to restore the whole original data individually, in which processes of the correlation inside normal data would be well captured by the model. Compared
+to MCM (Yin et al. 2024), which may generate ineffective
+masks, this approach guarantees that the model reconstructs
+the original data with partial attributes, thus strengthening
+its ability to extract the correlation within normal samples
+and yielding improvements in anomaly detection.
+Motivated by the aforementioned assumption, we propose
+a novel paradigm named Disent-AD, which efficiently disentangles CorrSets from normal tabular data and adequately
+captures the intrinsic correlation. For practical implementation, a two-head self-attention module is utilized to implicitly extract two distinct subsets in latent space. The attention maps depict the attributes of interest to the network.
+By learning two independent attention maps, the two attention heads focus on different regions of tabular data, enabling the implicit extraction of distinct attribute subsets. As
+shown in Figure 1(b), darker regions in attention maps indicate greater weights. Evidently, the attention module successfully concentrates on two non-overlapping attribute subsets. To ensure that disentangled subsets are correlated, a reconstruction task is performed to restore the original data
+by utilizing subset features extracted from either of the two
+attention heads. Importantly, this reconstruction process is
+strategically employed to detect anomalies rather than aiming for a complete restoration of the original data. During
+testing, samples with high reconstruction errors are detected
+as anomalies.
+Our contributions can be summarized as follows:
+
+is available at https://arxiv.org/abs/2411.07574. Codes are
+available at https://github.com/yjnanan/Disent-AD.
+
+2
+
+Related Work
+
+One-class anomaly detection aims to identify unobserved
+class samples during training by utilizing the knowledge
+learned from a single normal class. Relying on distance measurement techniques (Breunig et al. 2000), empirical cumulative distribution functions (Li et al. 2022), and regularized
+classifiers (Schölkopf et al. 1999) are some of the classical
+ways to tackle this task. A straightforward approach involves
+modeling a distribution based on normal samples and evaluating the likelihood of each test sample (Zong et al. 2018;
+Li et al. 2020). Establishing a reliable decision boundary between normal and anomaly samples through an end-to-end
+process with an effective one-class loss function has proven
+useful (Ruff et al. 2018). Generating pseudo anomalies is
+an alternative way to construct a decision boundary (Goyal
+et al. 2020; Cai and Fan 2022), which utilizes adversarial training or variational autoencoder (VAE) (An and Cho
+2015) to produce synthetic data that are abnormal yet closely
+resemble normal samples. Nevertheless, both methods require specific assumptions about distributions of normal and
+anomaly samples, which may not always be appropriate.
+Recent methods focus on designing self-supervision
+learning tasks to detect anomalies, such as applying geometric transformations to images and predicting the transformation (Golan and El-Yaniv 2018). However, geometric
+transformations are essentially not suitable for tabular data.
+To tackle this issue, GOAD (Bergman and Hoshen 2020)
+develops learnable transformations for tabular data. Inspired
+by learnable transformations, NeuTraLAD (Qiu et al. 2021)
+designs one contrastive loss to learn the invariant relationship among original and multiple transformed samples for
+normal data. With the idea of building a criterion based on
+contrastive loss, ICL (Shenkar and Wolf 2022) aims at maximizing the mutual information between each subset and the
+rest of the parts in normal tabular data. SLAD (Xu et al.
+2023b) proposes scale as a new characteristic for tabular data
+to capture the invariant representations of the normal class,
+which is treated as the relationship between the dimensionality of attribute subsets and that of their transformed latent
+representations. The most recent MCM (Yin et al. 2024) focuses on learning the intrinsic correlation of normal samples
+by restoring original data from data masked by diverse soft
+masks. Unlike previous methods, our work concentrates on
+implicitly disentangling CorrSets from normal data to extract the intrinsic correlation for anomaly detection.
+Semi- and weakly-supervised anomaly detection on
+tabular data assumes that anomaly samples are accessible
+during training (Yoon et al. 2020; Chang et al. 2023; Pang
+et al. 2023). Introducing anomaly knowledge into the training process enables these methods to extract discriminative
+knowledge between normal and anomaly features. In this paper, we train the model for anomaly detection without prior
+knowledge of anomalies. This task is particularly challenging as it involves constructing a criterion for distinguishing
+between normal and abnormal samples without explicit examples of anomalies to guide the process.
+
+• To our knowledge, this is one pioneering work that leverages the concept of disentanglement to enhance the efficiency of tabular one-class anomaly detection.
+• We propose a novel paradigm that learns the intrinsic correlation by disentangling two distinct and correlated attribute subsets from normal tabular data.
+• Extensive experiments conducted on 20 tabular datasets
+demonstrate the superiority of our method to state-of-theart methods, with an average improvement of 6.1% and
+2.1% in the AUC-PR and AUC-ROC, respectively.
+The extended version with full Supplementary Materials
+1
+It can be multiple subsets. However, our empirical results indicate using two subsets is the best.
+
+13062
+
+5*-"0).#6-."
+"%!"#$ '()*#+*,
+-"##*&%./"0
+
+5*-"0).#6-.!
+
+"%'!"$
+
+5*-"0).#6-."
+! !"#$ " !"#$
+&
+!"#$%&
+
+! !"#$
+
+Disentangling loss
+
+30"()*#+*,4
+-"##*&%./"0
+
+𝑧̂ !!
+𝑥
+
+5*-"0).#6-.!
+! '!"$ " '!"$
+&
+10"$%&2
+
+! '!"$
+
+Decoder
+𝑧̂
+
+!"
+
+𝑥! !"
+
+noise well, which barely affects the distinction between normal and abnormal samples. Accordingly, a criterion based
+on the reconstruction error for anomaly detection can be
+built by disentangling CorrSets from normal samples. It is
+worth noting that our method leverages reconstruction to detect anomalies rather than fully restoring the original data.
+The framework of our method is presented in Figure 3.
+Given one sample for illustrating our procedure, the encoder
+takes it as input and extracts its latent features. Then, a twohead self-attention module is utilized to disentangle tabular data for extracting features of two attribute subsets. Afterward, a decoder maps these features back to the input
+space for independently reconstructing the original data. Our
+model is trained in an end-to-end fashion and optimized by
+a disentangling loss and a reconstruction loss. During inference, the sum of the two subsets’ reconstruction errors
+serves as the anomaly score for each test sample.
+
+Methodology
+
+Problem Statement
+
+One-class anomaly detection on tabular data setup involves
+a training set Dtrain = {xi ∈ RM }N
+i=1 , which consists of
+N normal samples with M attributes. A test set, Dtest =
+{xi ∈ RM , yi ∈ Y}Ji=1 , consists of samples xi with labels
+yi , where Y = {0, 1} (0 denotes a normal and 1 denotes an
+anomaly). By training on Dtrain , a deep anomaly detection
+model constructs a scoring function ϕ : RM → R that quantitatively assesses the abnormality levels of new data points.
+
+3.2
+
+Two-head self-attention
+
+Figure 3: Illustration of our framework. The model consists
+of three modules: an encoder, a two-head self-attention, and
+a decoder. The network is trained under the constraint of a
+disentangling loss and a reconstruction loss.
+
+Out-of-distribution (OOD) detection often trains the
+network with a conventional classification task (e.g., tenclass classification) and identifies test samples belonging to
+the different distribution from which the training set is sampled (Liu et al. 2020; Zhu et al. 2022). Training with a multiclass classification task permits OOD detection methods
+to capture discriminative knowledge across various classes,
+thereby facilitating effective estimation of the training data
+distribution. However, our task aims to train a network with
+only one class for anomaly detection, which is more challenging as learning from one class may lead the model to
+produce predictions arbitrarily.
+
+3.1
+
+𝑧
+
+Reconstruction loss
+
+Figure 2: Illustration of our strategy. Red regions indicate
+anomaly attributes.
+
+3
+
+Encoder
+
+𝑥! !!
+
+3.3
+
+Our Proposed Method
+
+To capture the correlation inside normal samples, we propose to disentangle CorrSets from them. There are two main
+components in our method: disentangling and learning correlation. Practicality, we leverage a two-head self-attention
+for implicit disentanglement, and a reconstruction task guarantees the correlation between two subsets.
+
+Overview
+
+Our strategy for anomaly detection is illustrated in Figure 2. Considering a tabular dataset where each sample is
+composed of M attributes: xi = {a1 , a2 , · · · , aM }. We
+denote the CorrSets of normal data as snorm
+and snorm
+,
+i,1
+i,2
+norm
+norm
+snorm
+∪
+s
+=
+x
+if
+there
+are
+no
+noise
+attributes
+i,1
+i,2
+i
+in xi . The inherent correlation can be captured by training
+network fθ to restore the original data with only snorm
+or
+1
+snorm
+, i.e. fθ (snorm
+) → xnorm
+and fθ (snorm
+) → xnorm
+.
+2
+i,1
+i
+i,2
+i
+For anomaly instances during the test stage, we also extract
+two subsets, sanom
+and sanom
+. If anomaly attributes are
+1
+2
+anom
+presented in s1
+or sanom
+, normal attributes of anoma2
+lies can not be reconstructed well, as the internal relations
+of anomalies deviate from those of normal instances. There
+is a case where anomalous attributes are not in two subsets, but the model fails to restore them using normal attribute subsets, still producing large reconstruction errors.
+Noisy attributes are unavoidable in real-world scenarios;
+however, neither normal nor anomaly attributes reconstruct
+
+Disentangling Aiming to extract two distinct attribute
+subsets from normal samples, we utilize a two-head selfattention module to implicitly disentangle tabular data in latent space. The attention map describes attributes that the
+network focuses on, and the greater the attention weight,
+the more interested the network is. Learning two independent attention maps allows two heads of the attention module to extract latent features of two distinct attribute subsets
+in tabular data, thus enabling implicit disentanglement. We
+respectively demonstrate the importance of extracting two
+subsets and disentangling with two-head attention for capturing effective correlations in Section 4.6.
+The attention module is applied to latent features extracted by the encoder to disentangle tabular data. To successfully adopt the attention module, we convert tabular data
+from row vectors into column vectors, i.e., xi ∈ RM ×1 ,
+where M still denotes the number of attributes, and each
+13063
+
+The mean squared error (MSE) loss function is applied for
+the reconstruction loss:
+1 XN X
+2
+Lr =
+(5)
+(xi − x̂si h ) .
+i=1
+h=1,2
+N
+The overall loss function for training our method is defined as follows:
+Loverall = Ld + Lr ,
+(6)
+where we equal the weight for Ld and Lr to avoid a possible
+bias to one loss. By training with Loverall , the model is able
+to extract CorrSets, thereby learning the inherent correlation
+of normal data.
+
+Figure 4: Averaged reconstruction error and disentangling
+loss of test samples during training on the Thyroid dataset.
+
+3.4
+
+Anomaly Score for Inference
+
+The determination of a test sample as normal or abnormal is
+made by evaluating the reconstruction error. The cosine similarity between attention maps is not included in the anomaly
+score function. It is due to that the model is trained to extract two distinct subsets. Empirical evidence is presented in
+Figure 4. In the right part, the disentangling loss of anomalies varies almost identically to that of normal samples and
+eventually nears 0. As for the reconstruction error, the network aims to model the intrinsic correlation of normal class,
+thus test normal samples generally yield low errors. While
+anomalies consistently exhibit high reconstruction errors.
+Therefore, we define the anomaly score function ϕ (xi ) with
+the MSE function as below:
+X
+2
+ϕ (xi ) =
+(xi − x̂si h ) .
+(7)
+
+attribute owns 1 feature channel. The encoder fE maps xi
+to latent features zi ∈ RM ×C = fE (xi ), where C refers to
+the channel number of each attribute. With the attention, zi
+yields queries, keys, and values, symbolized respectively as
+qish , kish , vish ∈ RM ×C , for each head h ∈ {1, 2}. The computation of the two attention maps is formalized as follows:
+ sh sh T 
+q (k )
+sh
+wi = Sof tmax i √ i
+, h ∈ {1, 2},
+(1)
+C
+where the size of wish is M × M . To accomplish the objective of disentangling two distinct attribute subsets from each
+training instance, it is imperative to learn two independent
+attention maps. Our strategy is to diminish the similarity between them. To this end, a cosine similarity loss is employed
+to yield a disentangling loss:
+wis1
+wis2
+1 XN
+·
+,
+(2)
+Ld =
+s1
+s
+i=1 ∥w ∥2 ∥w 2 ∥2
+N
+i
+i
+where ∥ · ∥2 is the L2 norm. As Ld approaches 0, the two
+attention maps are orthogonal, thus allowing two heads to
+focus on distinct attribute subsets. Drawing from empirical
+observations, due to the absence of two attention maps with
+inverse relationships in single samples, the absolute value is
+not employed in the computation of Ld . Consequently, this
+restriction confines the range of Ld to interval [0, 1], despite
+the range of the cosine similarity loss spanning [−1, 1]. We
+validate the significance of Ld for learning the intrinsic correlation of normal data in Section 4.6.
+
+h=1,2
+
+The anomaly scores for normal data are expected to be as
+small as possible. For anomalies, whether or not the anomalous attributes are included in disentangled subsets, the
+model fails to reconstruct the complete input as the intrinsic correlation of the anomalies deviates from that of normal
+samples, resulting in high anomaly scores. The greater the
+anomaly score, the more likely that a sample is an anomaly.
+
+4
+4.1
+
+Experiments
+
+Datasets
+
+Our evaluation encompasses 20 tabular datasets, aligning
+with previous work (Yin et al. 2024). 12 of them are obtained
+from the Outlier Detection Datasets (ODDS) (Rayana 2016),
+while the remainder are derived from ADBench (Han et al.
+2022), which cross various application scenarios, including
+healthcare, finance, and more. For specific dataset statistics,
+please see Supplementary D.
+
+Learning Correlation With disentangling, we extract two
+distinct attribute subsets from normal tabular data. In order
+to capture the intrinsic correlation, it is essential to ensure
+that the disentangled subsets are correlated. Therefore, we
+perform a reconstruction task to individually restore the input sample from the features of each subset. Such a strategy
+guides the network in extracting CorrSets, thus progressing
+the learning of the intrinsic correlation of normal instances.
+As a result of directing two attention heads to focus on
+distinct attribute subsets, the latent features of those can be
+obtained by:
+ẑish = wish vish , h ∈ {1, 2},
+(3)
+
+4.2
+
+Evaluation Metrics
+
+Experiments on tabular data are conducted by following previous work (Xu et al. 2023b; Yin et al. 2024). We randomly
+sample 50% of the normal samples as the training set, and
+the remaining normal samples with all anomaly samples are
+combined into the test set. Area Under the Precision-Recall
+Curve (AUC-PR) and Area Under the Receiver-OperatingCharacteristic Curve (AUC-ROC) are selected as our evaluation criteria. These two metrics can objectively evaluate
+detection performance without making any assumption on
+the decision threshold. All reported results are averaged over
+three independent trials.
+
+where ẑish ∈ RM ×C . Then a decoder fD takes ẑish as inputs
+to produce reconstruction outputs:
+x̂si h = fD (ẑish ) , h ∈ {1, 2}.
+(4)
+13064
+
+Dataset
+
+IForest LOF OCSVM ECOD DAGMM DeepSVDD GOAD NeuTraLAD
+±4.1
+
+±2.3
+
+±4.5
+
+ICL
+±0.7
+
+SLAD
+±1.5
+
+MCM
+±0.3
+
+Ours
+63.6±0.3
+99.8±0.0
+82.7±2.8
+39.7±0.0
+46.9±1.0
+75.1±0.9
+60.5±1.6
+58.9±6.0
+98.3±0.2
+43.9±1.5
+88.6±0.8
+86.8±4.8
+73.7±2.7
+89.5±6.6
+89.1±0.0
+98.3±0.1
+99.5±0.2
+89.4±0.7
+91.0±0.5
+99.9±0.0
+
+Arrhythmia
+Breastw
+Cardio
+Census
+Campaign
+Cardiot.
+Fraud
+Glass
+Ionosphere
+Mammo.
+NSL-KDD
+Optdigits
+Pima
+Pendigits
+Satellite
+Satimage-2
+Shuttle
+Thyroid
+Wbc
+Wine
+
+50.9
+94.4
+70.1
+13.5
+46.0
+60.3
+69.3
+9.5
+97.6
+33.3
+75.3
+15.7
+66.6
+51.3
+85.8
+88.4
+91.7
+60.5
+85.7
+24.5
+
+52.7
+99.2
+83.6
+23.4
+44.5
+57.3
+40.4
+9.2
+95.9
+40.6
+74.5
+43.6
+69.7
+78.5
+80.8
+96.9
+96.0
+78.9
+84.1
+12.5
+
+53.3
+99.3
+86.1
+22.7
+47.4
+66.1
+34.9
+8.9
+89.6
+41.7
+75.2
+6.9
+70.0
+51.7
+77.7
+91.9
+94.8
+81.3
+83.9
+14.2
+
+44.6
+95.2
+36.3
+17.7
+47.0
+69.6
+40.6
+11.1
+97.1
+53.8
+63.5
+6.6
+58.7
+41.4
+83.3
+77.7
+98.1
+68.0
+72.1
+35.7
+
+46.6
+75.8
+30.8
+10.6
+24.7
+44.4
+0.9
+10.1
+70.4
+11.4
+75.0
+5.3
+59.5
+4.4
+68.6
+11.4
+48.7
+10.9
+29.5
+49.0
+
+64.5
+97.0±0.3
+67.4±5.4
+18.8±1.6
+33.0±3.3
+47.6±5.5
+73.5±1.8
+29.3±5.1
+97.9±0.4
+47.1±2.7
+89.7±4.3
+34.4±9.5
+70.2±1.2
+49.6±8.1
+80.7±1.2
+46.6±35.1
+97.6±0.6
+51.6±2.4
+72.9±2.4
+55.0±11.8
+
+63.2
+99.4±0.1
+31.4±4.3
+12.6±0.6
+47.1±0.3
+68.6±0.6
+54.9±0.7
+23.1±3.3
+93.0±1.4
+22.7±0.7
+85.7±0.3
+8.1±0.6
+63.7±1.3
+50.0±2.2
+84.7±0.1
+96.3±0.0
+91.6±0.2
+49.2±5.1
+62.2±7.9
+93.4±1.6
+
+60.9
+85.3±2.4
+63.5±2.5
+13.6±0.5
+44.4±2.7
+66.3±0.9
+58.2±0.1
+24.0±2.9
+98.6±0.4
+8.3±0.5
+88.4±2.4
+31.3±14.9
+56.4±1.4
+72.2±6.8
+87.3±0.1
+97.3±0.3
+99.5±0.2
+80.9±0.3
+29.1±4.3
+85.7±11.6
+
+65.4
+98.3±0.5
+59.5±7.9
+18.1±0.3
+43.5±0.5
+65.5±3.2
+67.5±0.9
+30.5±2.0
+96.9±0.0
+19.5±3.6
+60.4±2.4
+85.3±8.0
+60.0±1.2
+52.4±5.1
+88.2±0.5
+96.8±1.0
+97.3±0.6
+83.6±3.0
+75.5±5.5
+93.0±4.6
+
+Average
+Mean rank
+
+59.5
+7.6
+
+63.1
+6.8
+
+59.9
+7.0
+
+55.9
+8.1
+
+34.4
+11.2
+
+61.2±5.3
+6.2
+
+60.0±1.6
+7.3
+
+62.5±2.9
+6.6
+
+67.8±2.5 66.8±1.7 72.6±1.8 78.7±1.5
+5.9
+4.8
+4.0
+2.0
+
+63.7
+98.9±0.2
+71.3±1.9
+13.8±0.1
+48.6±0.0
+71.3±3.8
+54.3±4.2
+22.2±0.6
+98.6±0.3
+17.5±3.9
+91.2±0.5
+33.9±2.9
+61.7±0.7
+81.0±4.7
+87.5±0.0
+97.4±0.3
+92.7±0.5
+85.5±1.6
+46.3±7.7
+99.6±0.4
+
+58.3
+99.7±0.0
+78.5±0.8
+21.3±0.8
+59.0±1.8
+69.7±1.4
+50.5±2.2
+15.3±0.6
+97.7±0.1
+47.9±6.4
+90.2±0.6
+80.2±8.1
+69.4±0.9
+74.2±10.0
+83.6±0.0
+97.8±0.2
+97.8±0.5
+83.0±0.5
+86.1±1.2
+92.2±0.4
+
+Table 1: Comparison of AUC-PR results (%) of various methods. The best result per dataset is bold. The mean rank (↓) (bottom
+row) is calculated out of 12. Cardiot. and Mammo. refer to the Cardiotocography and Mammography datasets, respectively.
+
+4.3
+
+Implementation Details
+
+cal non-deep methods. The competing deep methods include
+DAGMM (Zong et al. 2018), DeepSVDD (Ruff et al. 2018),
+GOAD (Bergman and Hoshen 2020), NeuTraLAD (Qiu
+et al. 2021), ICL (Shenkar and Wolf 2022), SLAD (Xu et al.
+2023b), and MCM (Yin et al. 2024). It is noted that the results of IForest, LOF, OCSVM, ECOD, and DAGMM are
+obtained from MCM. We implement DeepSVDD, GOAD,
+NeuTraLAD, ICL, and SLAD by using DeepOD (Xu et al.
+2023a), an open-source Python library for deep learningbased anomaly detection. The implementation of MCM is
+based on their official open-source code, and original results
+reported in their paper are presented in Supplementary E.
+
+In our network architecture, a three-layer Multilayer Perceptron (MLP) with LeakyReLU activation function forms the
+encoder, and the decoder is symmetrically designed to the
+encoder. For the adaption of the attention module to tabular data, we transform row vectors into column vectors for
+most datasets and perform a patch-splitting preprocessing
+method for the rest to facilitate disentanglement, mostly derived from image scenarios. We consider the data structures
+of these datasets to be too complicated to affect disentangling. The preprocessing method is performed by splitting
+the data into three patches with the size of M/2 and treating
+each patch as an attribute to compose new data to simplify
+the data structure. We present a detailed description of the
+preprocessing method in Supplementary A. For datasets applied with the preprocessing method, we set epochs to 200
+and the channel number C of latent features to 512 for efficient convergence, while epochs to 100 and C to 128 for
+the rest. Due to the large variation in the number of samples
+between datasets, ranging from 129 to 299,285, we use different batch sizes for different datasets. The parameters of
+the network are optimized by Adam with a uniform learning
+rate of 1e-4 for all datasets. See Supplementary B for more
+implementation details.
+
+4.4
+
+4.5
+
+Anomaly Detection Performance
+
+Table 1 and 2 present the AUC-PR and AUC-ROC results
+of our method alongside the competing methods across
+20 datasets, respectively. Despite the heterogeneity in the
+datasets, our method achieves the best overall performance
+on both two evaluation metrics, outperforming the secondbest method by an average of 6.1% on AUC-PR and 2.1% on
+AUC-ROC. To prevent a few datasets from dominating the
+averaged results, we also present the mean rank for comparison. The best mean ranking out of 12 is obtained by
+our method, which is considerably lower than competing
+methods. At the dataset level, our method beats competitors on 13 out of 20 datasets according to both AUC-PR
+and AUC-ROC, while exhibiting competitive performance
+on the remaining datasets. Significant performance gains are
+obtained by our method on some datasets compared to the
+second-best method, e.g., 16.3% improvement in AUC-PR
+
+Baseline Methods
+
+Our method is compared with eleven outstanding tabular
+anomaly detection methods. IForest (Liu, Ting, and Zhou
+2008), LOF (Breunig et al. 2000), OCSVM (Schölkopf
+et al. 1999), and ECOD (Li et al. 2022) represent classi13065
+
+Dataset
+
+IForest LOF OCSVM ECOD DAGMM DeepSVDD GOAD NeuTraLAD
+±3.0
+
+±0.7
+
+±0.9
+
+ICL
+
+SLAD
+
+±0.5
+
+±0.3
+
+MCM
+±0.5
+
+Ours
+80.3±0.2
+99.7±0.0
+95.3±0.8
+83.3±0.0
+75.9±1.7
+81.9±0.2
+95.4±0.2
+92.7±0.3
+97.8±0.2
+90.2±0.3
+83.2±0.5
+99.1±0.2
+75.8±2.2
+99.5±0.3
+86.8±0.1
+99.9±0.0
+99.9±0.0
+98.9±0.0
+98.5±0.1
+100.0±0.0
+
+Arrhythmia
+Breastw
+Cardio
+Census
+Campaign
+Cardiot.
+Fraud
+Glass
+Ionosphere
+Mammo.
+NSL-KDD
+Optdigits
+Pima
+Pendigits
+Satellite
+Satimage-2
+Shuttle
+Thyroid
+Wbc
+Wine
+
+77.3
+97.1
+92.2
+60.1
+72.6
+72.4
+96.3
+57.7
+96.8
+82.2
+73.8
+82.3
+67.3
+96.6
+80.2
+99.3
+99.6
+92.7
+97.1
+65.7
+
+76.8
+99.3
+95.6
+71.1
+70.6
+64.4
+95.7
+56.2
+94.5
+89.2
+54.9
+96.6
+69.1
+99.0
+73.9
+99.6
+99.8
+98.5
+96.7
+40.8
+
+76.8
+99.3
+96.5
+71.5
+76.2
+75.2
+95.4
+54.8
+87.6
+90.0
+57.0
+63.3
+71.3
+96.3
+66.6
+98.1
+99.6
+98.5
+96.6
+48.5
+
+71.9
+96.4
+63.7
+57.7
+75.5
+78.8
+85.3
+62.3
+95.6
+82.5
+38.1
+61.4
+58.3
+92.9
+78.8
+96.5
+99.7
+88.2
+87.4
+74.3
+
+72.8
+76.0
+69.5
+45.0
+57.8
+61.0
+72.7
+59.8
+70.4
+74.1
+61.3
+47.0
+61.0
+39.8
+72.5
+89.9
+90.4
+71.4
+79.9
+88.3
+
+79.1
+97.4±0.2
+85.4±3.0
+64.1±1.4
+62.7±2.2
+60.6±5.8
+91.4±2.0
+74.6±3.2
+97.4±0.5
+84.8±0.9
+83.1±8.4
+77.4±4.3
+63.9±0.8
+89.2±3.0
+77.5±1.2
+88.8±9.4
+99.2±0.4
+93.1±1.2
+91.8±1.6
+84.4±1.9
+
+81.3
+99.4±0.1
+49.4±3.8
+58.0±2.1
+73.0±0.2
+81.3±0.6
+93.8±1.1
+75.5±3.1
+91.8±1.2
+73.5±0.5
+84.6±0.4
+68.0±2.5
+64.4±1.1
+95.4±0.4
+78.0±0.3
+99.6±0.0
+99.4±0.0
+93.4±0.9
+89.4±0.2
+98.7±0.4
+
+79.8
+90.8±1.5
+85.9±2.6
+53.6±1.0
+71.4±4.1
+74.8±1.6
+91.0±0.9
+77.6±3.1
+98.2±0.4
+69.8±1.5
+80.0±5.7
+86.4±5.7
+55.2±2.5
+98.2±0.9
+83.3±0.2
+99.8±0.0
+99.9±0.0
+98.3±0.1
+78.7±1.4
+96.8±2.4
+
+81.0
+98.4±0.3
+82.3±4.7
+67.1±0.2
+70.7±0.6
+70.3±3.6
+92.6±0.6
+86.2±1.5
+96.5±0.1
+57.9±3.2
+31.5±4.5
+99.0±0.4
+57.4±1.7
+91.9±3.3
+85.5±0.4
+99.7±0.1
+98.6±0.4
+98.4±0.2
+91.5±2.6
+97.0±3.0
+
+Average
+Mean rank
+
+83.0
+6.7
+
+82.1
+6.2
+
+81.0
+6.4
+
+77.3
+8.8
+
+68.0
+10.7
+
+82.2±2.7
+8.0
+
+82.3±0.9
+6.6
+
+83.4±1.8
+6.7
+
+82.6±1.5 86.9±0.8 89.6±0.5 91.7±0.3
+6.9
+4.5
+3.7
+1.7
+
+80.6
+98.9±0.1
+87.2±0.5
+61.8±0.4
+73.7±0.1
+81.6±3.6
+95.4±0.2
+78.9±2.5
+98.2±0.3
+75.8±2.3
+84.6±0.8
+92.8±0.2
+61.5±1.5
+98.9±0.4
+84.2±0.6
+99.7±0.1
+99.5±0.0
+98.6±0.3
+86.2±2.6
+99.9±0.0
+
+78.9
+99.7±0.0
+92.9±0.6
+73.6±0.6
+88.0±1.0
+81.1±1.2
+94.0±0.1
+72.1±1.6
+96.7±0.1
+91.2±1.5
+87.9±0.4
+98.9±0.5
+70.9±1.5
+98.9±0.5
+78.7±0.0
+99.8±0.0
+99.9±0.0
+97.8±0.0
+97.3±0.5
+95.4±0.9
+
+4.6
+
+Variant 1 Variant 2 Variant 3
+
+Ours
+
+-
+
+✓
+-
+
+✓
+✓
+-
+
+✓
+✓
+✓
+
+AUC-PR
+
+and 9.7% in AUC-ROC on Census, and 28.4% in AUC-PR
+and 6.5% in AUC-ROC on Glass. Generally, these comparison results validate the superiority of our method.
+
+Thyroid
+Arrhythmia
+Glass
+Satellite
+
+72.6±1.6
+59.4±1.7
+40.8±16.1
+88.4±0.0
+
+78.8±4.0
+61.7±0.8
+44.2±7.0
+88.6±0.3
+
+72.4±1.2
+58.7±0.9
+31.3±8.9
+87.5±0.2
+
+89.4±0.7
+63.6±0.3
+58.9±6.0
+89.1±0.0
+
+AUC-ROC
+
+Table 2: AUC-ROC results of our method and competing methods.
+
+Method
+
+Thyroid
+Arrhythmia
+Glass
+Satellite
+
+97.1±0.1
+75.4±1.7
+80.3±15.7
+85.7±0.0
+
+95.9±1.3
+79.1±0.5
+88.4±3.3
+86.5±0.3
+
+97.3±0.1
+75.0±2.0
+76.3±6.8
+85.3±0.2
+
+98.9±0.0
+80.3±0.2
+92.7±0.3
+86.8±0.1
+
+Two subsets
+Two heads
+Ld
+
+Ablation Study
+
+Four datasets sourced from different application scenarios
+are selected to conduct the ablation study: Thyroid (healthcare), Arrhythmia (healthcare), Glass (forensic), and Satellite (satellite image). The results are reported in Table 3.
+Disentangling two subsets is crucial for learning the
+intrinsic correlation of normal data: We design “Variant 1” that learns one attention map with a one-head selfattention module. Restoring original data from one subset
+makes the model extract attributes that can be used for reconstruction. However, the attention module might focus on
+each attribute to minimize reconstruction loss, causing the
+model to struggle with capturing the intrinsic correlation of
+normal samples. According to the experimental results, the
+detection performance of “Variant 1” is much lower than that
+of our method, validating the significance of disentangling
+two subsets for learning the correlation in normal samples.
+Extracting two subsets with two-head self-attention
+can capture better correlation than with one-head selfattention: “Variant 2” disentangles two subsets with a onehead self-attention module. We implement it by wis2 =
+1−wis1 , where wis1 is produced by the attention module, and
+they are independent of each other. Evidently, “Variant 2” is
+significantly inferior to our method. It is due to that noise attributes might be contained in subsets according to wi2 , leading to less effective learning of the intrinsic correlation. In
+our method, disentangling with the two-head self-attention
+
+Table 3: Ablation study of our method and its variants.
+
+module helps reduce the effect of noise attributes on learning the correlation. Additionally, the performance gap between “Variant 2” and “Variant 1” further demonstrates the
+significance of disentangling two subsets.
+Constraining the two subsets to be distinct is necessary
+for learning the correlation within normal data: A substantial performance drop is observed in “Variant 3”, since
+the absence of the disentangling loss hinders the model from
+extracting two non-overlapping attribute subsets. This indicates that the disentangling loss is crucial in our method. We
+report the results of replacing our disentangling loss with
+MCM (Yin et al. 2024)’s diversity loss in Supplementary E.
+13066
+
+Data shape
+∗
+
+M ×1
+2 × M/2
+2 × 3M/4
+3 × M/3
+3 × M/2 (Ours)
+Shuffling
+
+Satimage-2
+±0.5
+
+75.7
+/74.6
+87.7±0.5 /84.5±0.0
+85.9±0.1 /81.7±0.3
+86.7±0.3 /82.5±0.6
+89.1±0.0 /86.8±0.1
+
+96.5±0.2 /99.3±0.1
+98.1±0.1 /99.9±0.0
+98.2±0.1 /99.9±0.0
+97.3±0.1 /99.7±0.1
+98.3±0.1 /99.9±0.0
+
+88.5±0.5 /86.9±0.3 97.9±0.0 /99.8±0.0
+
+Table 4: AUC-PR/AUC-ROC results on Satellite and Satimage datasets with varying data shapes after applying the preprocessing method. M denotes the attributes number in the
+original data, and * denotes results without preprocessing.
+Shuffling refers to randomly shuffling the order of attributes
+in the original data before using preprocessing.
+
+Figure 5: AUC-PR and AUC-ROC vs. subset numbers.
+
+our method experiences minimal performance degradation
+as the anomaly contamination ratio increases, consistently
+yielding the best results in each case. Such empirical evidence justifies the outstanding robustness of our method to
+anomaly contamination.
+
+(a) Breastw
+
+Analysis on the Preprocessing Method Table 4 presents
+the detection performance of preprocessing data into various
+data shapes, where Satellite and Satimage-2 are selected as
+illustrative datasets. They are sourced from satellite image
+scenarios and preprocessed in our implementation. There
+are overlaps between split patches when the data shape is
+2 × 3M/4 or 3 × M/2. Evidently, there is a noticeable
+performance improvement when applying the preprocessing
+method, as a reduced number of attributes enables the model
+to disentangle data more easily, thereby facilitating correlation learning. According to the empirical results, we use
+the data shape of 3 × M/2 in our implementation. We also
+test our method’s robustness to randomly ordered attributes
+in original data when using the preprocessing method. Although there is a slight performance drop, the results are still
+comparable, which verifies that our method is robust to the
+randomly ordered attributes.
+
+(b) Cardiotocography
+
+Figure 6: AUC-PR and AUC-ROC vs. various ratios of
+anomaly contamination.
+
+4.7
+
+Satellite
+±0.2
+
+Further Analysis
+
+Analysis on Subset Number Figure 5 reports the detection performance of our method vs. different numbers of
+disentangled attribute subsets, where Thyroid, Arrhythmia,
+Glass, and Satellite are used as illustrative datasets. Evidently, as the subset number is increased, the performance
+drops slightly, partially as extracting more correlated subsets raises the difficulty of training convergence. Additionally, there is a case that multiple (> 2) subsets related to each
+other are not present in normal samples, which may lead to
+computational redundancy. This analysis indicates the rationale of our two subsets strategy. Visualization of attention
+maps for three subsets is shown in Supplementary C.
+
+5
+
+Conclusion
+
+In this paper, we design a novel disentangling-based method
+to learn the correlation inside normal tabular data by extracting two distinct and correlated attribute subsets for anomaly
+detection. To our knowledge, this is the first work to successfully leverage disentanglement for tabular anomaly detection under the one-class classification setting. Extensive
+experiments conducted on 20 tabular datasets sourced from
+diverse application scenarios with AUC-PR and AUC-ROC
+metrics evidence that our method outperforms the existing
+best methods. However, it is imperative to note that our current design specifically caters to tabular data and, as such,
+does not directly apply to other data types, such as image or
+point cloud data. We intend to explore disentangling-based
+methods for non-tabular data types in future work.
+
+Robustness to Anomaly Contamination In real-world
+anomaly detection, the training set may be contaminated,
+with a small percentage of anomalies included. By reference to (Yin et al. 2024), we successively set the anomaly
+contamination ratio to 0%, 1%, 3%, and 5% to analyze the
+robustness of our method to anomaly contamination. Selecting Breastw and Cardiotocography as typical datasets,
+analysis results are shown in Figure 6. It is observed that
+13067
+
+Acknowledgments
+
+Liu, W.; Wang, X.; Owens, J.; and Li, Y. 2020. EnergyBased Out-of-Distribution Detection. In Advances in Neural
+Information Processing Systems, 21464–21475.
+Malaiya, R. K.; Kwon, D.; Suh, S. C.; Kim, H.; Kim, I.; and
+Kim, J. 2019. An Empirical Evaluation of Deep Learning
+for Network Anomaly Detection. IEEE Access, 7: 140806–
+140817.
+Pang, G.; Shen, C.; Jin, H.; and van den Hengel, A. 2023.
+Deep Weakly-Supervised Anomaly Detection. In ACM
+SIGKDD Conference on Knowledge Discovery and Data
+Mining, 1795–1807.
+Qiu, C.; Pfrommer, T.; Kloft, M.; Mandt, S.; and Rudolph,
+M. 2021.
+Neural Transformation Learning for Deep
+Anomaly Detection Beyond Images. In International Conference on Machine Learning, 8703–8714.
+Rayana, S. 2016.
+ODDS Library.
+https://odds.cs.
+stonybrook.edu.
+Ruff, L.; Kauffmann, J. R.; Vandermeulen, R. A.; Montavon,
+G.; Samek, W.; Kloft, M.; Dietterich, T. G.; and Müller, K.R. 2021. A Unifying Review of Deep and Shallow Anomaly
+Detection. Proceedings of the IEEE, 109: 756–795.
+Ruff, L.; Vandermeulen, R.; Goernitz, N.; Deecke, L.; Siddiqui, S. A.; Binder, A.; Müller, E.; and Kloft, M. 2018.
+Deep One-Class Classification. In International Conference
+on Machine Learning, 4393–4402.
+Schölkopf, B.; Williamson, R. C.; Smola, A.; Shawe-Taylor,
+J.; and Platt, J. 1999. Support Vector Method for Novelty
+Detection. In Advances in Neural Information Processing
+Systems, 582–588.
+Shenkar, T.; and Wolf, L. 2022. Anomaly Detection for Tabular Data with Internal Contrastive Learning. In International Conference on Learning Representations.
+Xu, H.; Pang, G.; Wang, Y.; and Wang, Y. 2023a. Deep
+Isolation Forest for Anomaly Detection. IEEE Transactions
+on Knowledge and Data Engineering, 35: 12591–12604.
+Xu, H.; Wang, Y.; Wei, J.; Jian, S.; Li, Y.; and Liu, N. 2023b.
+Fascinating Supervisory Signals and Where to Find Them:
+Deep Anomaly Detection with Scale Learning. In International Conference on Machine Learning, 38655–38673.
+Yin, J.; Qiao, Y.; Zhou, Z.; Wang, X.; and Yang, J. 2024.
+MCM: Masked Cell Modeling for Anomaly Detection in
+Tabular Data. In International Conference on Learning Representations.
+Yoon, J.; Zhang, Y.; Jordon, J.; and van der Schaar, M. 2020.
+VIME: Extending the Success of Self-and Semi-Supervised
+Learning to Tabular Domain. In Advances in Neural Information Processing Systems, 11033–11043.
+Zhu, Y.; Chen, Y.; Xie, C.; Li, X.; Zhang, R.; Xue, H.; et al.
+2022. Boosting Out-of-Distribution Detection with Typical Features. In Advances in Neural Information Processing
+Systems, 20758–20769.
+Zong, B.; Song, Q.; Min, M. R.; Cheng, W.; Lumezanu, C.;
+Cho, D.; and Chen, H. 2018. Deep Autoencoding Gaussian
+Mixture Model for Unsupervised Anomaly Detection. In
+International Conference on Learning Representations.
+
+The work was partially supported by the following: National
+Natural Science Foundation of China under No. 92370119,
+No. 62376113, and No. 62206225; The Alan Turing Institute (UK) through the project ’Turing-DSO Labs Singapore
+Collaboration’ (SDCfP2\100009).
+
+References
+An, J.; and Cho, S. 2015. Variational Autoencoder based
+Anomaly Detection using Reconstruction Probability. Special lecture on IE, 2: 1–18.
+Bergman, L.; and Hoshen, Y. 2020. Classification-based
+Anomaly Detection for General Data. In International Conference on Learning Representations.
+Breunig, M. M.; Kriegel, H.-P.; Ng, R. T.; and Sander, J.
+2000. LOF: Identifying Density-based Local Outliers. In
+ACM SIGMOD International Conference on Management
+of Data, 93–104.
+Cai, J.; and Fan, J. 2022. Perturbation Learning based
+Anomaly Detection. In Advances in Neural Information
+Processing Systems, 14317–14330.
+Chandola, V.; Banerjee, A.; and Kumar, V. 2009. Anomaly
+Detection: A Survey. ACM Computing Surveys, 41: 1–58.
+Chang, C.-H.; Yoon, J.; Arik, S. Ö.; Udell, M.; and Pfister,
+T. 2023. Data-Efficient and Interpretable Tabular Anomaly
+Detection. In ACM SIGKDD Conference on Knowledge Discovery and Data Mining, 190–201.
+Chen, X.; and Konukoglu, E. 2018. Unsupervised Detection of Lesions in Brain MRI using Constrained Adversarial
+Auto-Encoders. In Medical Imaging with Deep Learning.
+Golan, I.; and El-Yaniv, R. 2018. Deep Anomaly Detection
+using Geometric Transformations. In Advances in Neural
+Information Processing Systems, 9781–9791.
+Goyal, S.; Raghunathan, A.; Jain, M.; Simhadri, H. V.; and
+Jain, P. 2020. DROCC: Deep Robust One-Class Classification. In International Conference on Machine Learning,
+3711–3721.
+Han, S.; Hu, X.; Huang, H.; Jiang, M.; and Zhao, Y. 2022.
+ADBench: Anomaly Detection Benchmark. In Advances in
+Neural Information Processing Systems, 32142–32159.
+Hilal, W.; Gadsden, S. A.; and Yawney, J. 2022. Financial Fraud: A Review of Anomaly Detection Techniques and
+Recent Advances. Expert systems With applications, 193:
+116429–116462.
+Li, Z.; Zhao, Y.; Botta, N.; Ionescu, C.; and Hu, X. 2020.
+COPOD: Copula-Based Outlier Detection. In IEEE International Conference on Data Mining, 1118–1123.
+Li, Z.; Zhao, Y.; Hu, X.; Botta, N.; Ionescu, C.; and Chen,
+G. H. 2022. ECOD: Unsupervised Outlier Detection using
+Empirical Cumulative Distribution Functions. IEEE Transactions on Knowledge and Data Engineering, 35: 12181–
+12193.
+Liu, F. T.; Ting, K. M.; and Zhou, Z.-H. 2008. Isolation
+Forest. In IEEE International Conference on Data Mining,
+413–422.
+13068
+
+
